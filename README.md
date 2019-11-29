@@ -13,23 +13,23 @@ Build automation software, mind mapping tools, or simple programming platforms i
 - [Features](#features)
 - [Installation](#installation)
 - [Running Flowy](#running-flowy)
-    - [Initialization](#initialization)
-    - [Example](#example)
+  - [Initialization](#initialization)
+  - [Example](#example)
 - [Methods](#methods)
-    - [Get the flowchart data](#get-the-flowchart-data)
-    - [Delete all blocks](#delete-all-blocks)
+  - [Get the flowchart data](#get-the-flowchart-data)
+  - [Delete all blocks](#delete-all-blocks)
 
 ## Features
 
 Currently, Flowy supports the following:
 
- - Responsive drag and drop
- - Automatic snapping
- - Block rearrangement
- - Delete blocks
- - Automatic block centering
- 
-You can try out [the demo](https://denysvuika.github.io/flowy) to see the library in action. 
+- Responsive drag and drop
+- Automatic snapping
+- Block rearrangement
+- Delete blocks
+- Automatic block centering
+
+You can try out [the demo](https://denysvuika.github.io/flowy) to see the library in action.
 
 ## Installation
 
@@ -46,41 +46,43 @@ Adding Flowy to your WebApp is incredibly simple:
 flowy(canvas, ongrab, onrelease, onsnap, spacing_x, spacing_y);
 ```
 
-Parameter | Type | Description
---- | --- | ---
-   `canvas` | *jQuery object* | The element that will contain the blocks 
-   `ongrab` | *function* (optional) |  Function that gets triggered when a block is dragged
-   `onrelease` | *function* (optional) |  Function that gets triggered when a block is released
-   `onsnap` | *function* (optional) |  Function that gets triggered when a block snaps with another one
-   `spacing_x` | *integer* (optional) |  Horizontal spacing between blocks (default 20px)
-   `spacing_Y` | *integer* (optional) |  Vertical spacing between blocks (default 80px)
+| Parameter   | Type                  | Description                                                      |
+| ----------- | --------------------- | ---------------------------------------------------------------- |
+| `canvas`    | _jQuery object_       | The element that will contain the blocks                         |
+| `ongrab`    | _function_ (optional) | Function that gets triggered when a block is dragged             |
+| `onrelease` | _function_ (optional) | Function that gets triggered when a block is released            |
+| `onsnap`    | _function_ (optional) | Function that gets triggered when a block snaps with another one |
+| `spacing_x` | _integer_ (optional)  | Horizontal spacing between blocks (default 20px)                 |
+| `spacing_Y` | _integer_ (optional)  | Vertical spacing between blocks (default 80px)                   |
 
 To define the blocks that can be dragged, you need to add the class `.create-flowy`
 
 ### Example
 
-**HTML**
+#### HTML
 
 ```html
 <div class="create-flowy">The block to be dragged</div>
 <div id="canvas"></div>
 ```
 
-**Javascript**
+#### Javascript
 
 ```javascript
 var spacing_x = 40;
 var spacing_y = 100;
+
 // Initialize Flowy
-flowy($("#canvas"), onGrab, onRelease, onSnap, spacing_x, spacing_y);
-function onGrab(){
-	// When the user grabs a block
+flowy($('#canvas'), onGrab, onRelease, onSnap, spacing_x, spacing_y);
+
+function onGrab() {
+  // When the user grabs a block
 }
-function onRelease(){
-	// When the user releases a block
+function onRelease() {
+  // When the user releases a block
 }
-function onSnap(){
-	// When a block snaps with another one
+function onSnap() {
+  // When a block snaps with another one
 }
 ```
 
@@ -99,33 +101,33 @@ The JSON object that gets outputted looks like this:
 
 ```javascript
 {
-	"id": 1,
-	"parent": 0,
-	"data": [
-		{
-		"name": "blockid",
-		"value": "1"
-		}
-	]
+  "id": 1,
+  "parent": 0,
+  "data": [
+    {
+      "name": "blockid",
+      "value": "1"
+    }
+  ]
 }
 ```
 
 Here's what each property means:
 
-Key | Value type | Description
---- | --- | ---
-   `id` | *integer* | Unique value that identifies a block 
-   `parent` | *integer* |  The `id` of the parent a block is attached to (-1 means the block has no parent)
-   `data` | *array of objects* |  An array of all the inputs within the selected block
-   `name` | *string* |  The name attribute of the input
-   `value` | *string* |  The value attribute of the input
+| Key      | Value type         | Description                                                                      |
+| -------- | ------------------ | -------------------------------------------------------------------------------- |
+| `id`     | _integer_          | Unique value that identifies a block                                             |
+| `parent` | _integer_          | The `id` of the parent a block is attached to (-1 means the block has no parent) |
+| `data`   | _array of objects_ | An array of all the inputs within the selected block                             |
+| `name`   | _string_           | The name attribute of the input                                                  |
+| `value`  | _string_           | The value attribute of the input                                                 |
 
 ### Delete all blocks
 
 To remove all blocks at once use:
 
 ```javascript
-flowy.deleteBlocks()
+flowy.deleteBlocks();
 ```
 
 Currently there is no method to individually remove blocks. The only way to go about it is by splitting branches manually.

@@ -10,7 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/DenysVuika/flowy.git"
   },
-  "keywords": ["flowchart", "diagrams", "javascript"],
+  "keywords": [
+    "flowchart",
+    "diagrams",
+    "javascript"
+  ],
   "author": {
     "name": "Denys Vuika",
     "email": "denys.vuika@gmail.com",
