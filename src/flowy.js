@@ -463,3 +463,5 @@ var flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
         snapping(drag);
     }
 }
+
+export default flowy;

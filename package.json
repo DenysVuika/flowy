@@ -4,6 +4,8 @@
   "description": "The minimal javascript library to create flowcharts",
   "main": "flowy.min.js",
   "scripts": {
+    "build": "rollup --config",
+    "docs": "http-server ./docs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,5 +26,10 @@
   "bugs": {
     "url": "https://github.com/DenysVuika/flowy/issues"
   },
-  "homepage": "https://github.com/DenysVuika/flowy#readme"
+  "homepage": "https://github.com/DenysVuika/flowy#readme",
+  "devDependencies": {
+    "http-server": "^0.12.0",
+    "rollup": "^1.27.5",
+    "rollup-plugin-terser": "^5.1.2"
+  }
 }
