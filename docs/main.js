@@ -22,7 +22,7 @@ $(document).ready(function(){
         } else if (drag.children(".blockelemtype").val() == "7") {
             drag.append("<div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>Perform an action</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>Perform <span>Action 1</span></div>");
         } else if (drag.children(".blockelemtype").val() == "8") {
-            drag.append("<div class='blockyleft'><img src='assets/twitterorange.svg'><p class='blockyname'>Make a tweet</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>Tweet <span>Query 1</span> with the account <span>@alyssaxuu</span></div>");
+            drag.append("<div class='blockyleft'><img src='assets/twitterorange.svg'><p class='blockyname'>Make a tweet</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>Tweet <span>Query 1</span> with the account <span>@DenysVuika</span></div>");
         } else if (drag.children(".blockelemtype").val() == "9") {
             drag.append("<div class='blockyleft'><img src='assets/logred.svg'><p class='blockyname'>Add new log entry</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>Add new <span>success</span> log entry</div>");
         } else if (drag.children(".blockelemtype").val() == "10") {
@@ -56,10 +56,10 @@ $(document).ready(function(){
            rightcard = false;
            $("#properties").removeClass("expanded");
            setTimeout(function(){
-                $("#propwrap").removeClass("itson"); 
+                $("#propwrap").removeClass("itson");
            }, 300);
             tempblock.removeClass("selectedblock");
-       } 
+       }
     });
 $("#removeblock").on("click", function(){
  flowy.deleteBlocks();
@@ -73,7 +73,7 @@ $(document).on("mousedown", ".block", function (event) {
            $("#properties").addClass("expanded");
         $("#propwrap").addClass("itson");
             tempblock.addClass("selectedblock");
-       } 
+       }
     }
     $(document).off("mouseup mousemove", handler);
   });

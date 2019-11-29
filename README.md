@@ -3,7 +3,7 @@
 ![Demo](flowy.gif)
 <br>A javascript library to create pretty flowcharts with ease ✨
 
-[Dribbble](https://dribbble.com/shots/8576286-Flowy-Flowchart-Engine) | [Twitter](https://twitter.com/alyssaxuu/status/1199724989353730048) | [Live demo](https://alyssax.com/x/flowy)
+[Live demo](https://denysvuika.github.io/flowy)
 
 Flowy makes creating WebApps with flowchart functionality an incredibly simple task.
 Build automation software, mind mapping tools, or simple programming platforms in minutes by implementing the library into your project.
@@ -29,7 +29,7 @@ Currently, Flowy supports the following:
  - Delete blocks
  - Automatic block centering
  
-You can try out [the demo](https://alyssax.com/x/flowy) to see the library in action. 
+You can try out [the demo](https://denysvuika.github.io/flowy) to see the library in action. 
 
 ## Installation
 
