@@ -19,10 +19,10 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
   $(document).ready(function() {
     let blocks = [];
     let blockstemp = [];
-    let canvas_div = canvas;
+    const canvas_div = canvas;
     let active = false;
-    let paddingx = spacing_x;
-    let paddingy = spacing_y;
+    const paddingx = spacing_x;
+    const paddingy = spacing_y;
     let offsetleft = 0;
     let offsetleftold = 0;
     let rearrange = false;
@@ -30,7 +30,7 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
     let drag, dragx, dragy, original;
     canvas_div.append("<div class='indicator invisible'></div>");
     flowy.output = function() {
-      let json_data = [];
+      const json_data = [];
       if (blocks.length > 0) {
         for (let i = 0; i < blocks.length; i++) {
           json_data.push({
@@ -42,8 +42,8 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
             .parent()
             .children('input')
             .each(function() {
-              let json_name = $(this).attr('name');
-              let json_value = $(this).val();
+              const json_name = $(this).attr('name');
+              const json_value = $(this).val();
               json_data[i].data.push({
                 name: json_name,
                 value: json_value
@@ -236,12 +236,12 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
         } else if (active && blocks.length == 0) {
           drag.remove();
         } else if (active || rearrange) {
-          let xpos =
+          const xpos =
             drag.offset().left +
             drag.innerWidth() / 2 +
             canvas_div.scrollLeft();
-          let ypos = drag.offset().top + canvas_div.scrollTop();
-          let blocko = blocks.map(a => a.id);
+          const ypos = drag.offset().top + canvas_div.scrollTop();
+          const blocko = blocks.map(a => a.id);
           for (let i = 0; i < blocks.length; i++) {
             if (
               xpos >=
@@ -447,12 +447,12 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
                   height: drag.innerHeight()
                 });
               }
-              let arrowhelp = blocks.filter(
+              const arrowhelp = blocks.filter(
                 a => a.id == parseInt(drag.children('.blockid').val())
               )[0];
-              let arrowx =
+              const arrowx =
                 arrowhelp.x - blocks.filter(a => a.id == blocko[i])[0].x + 20;
-              let arrowy =
+              const arrowy =
                 arrowhelp.y -
                 arrowhelp.height / 2 -
                 (blocks.filter(id => id.parent == blocko[i])[0].y +
@@ -622,7 +622,7 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
               drag.addClass('dragging');
               dragx = event.clientX - $(this).offset().left;
               dragy = event.clientY - $(this).offset().top;
-              let blockid = parseInt(
+              const blockid = parseInt(
                 $(this)
                   .children('.blockid')
                   .val()
@@ -638,7 +638,7 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
               let layer = blocks.filter(a => a.parent == blockid);
               let flag = false;
               let foundids = [];
-              let allids = [];
+              const allids = [];
               while (!flag) {
                 for (let i = 0; i < layer.length; i++) {
                   blockstemp.push(blocks.filter(a => a.id == layer[i].id)[0]);
@@ -801,14 +801,14 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
 
     function checkOffset() {
       offsetleft = blocks.map(a => a.x);
-      let widths = blocks.map(a => a.width);
-      let mathmin = offsetleft.map(function(item, index) {
+      const widths = blocks.map(a => a.width);
+      const mathmin = offsetleft.map(function(item, index) {
         return item - widths[index] / 2;
       });
       offsetleft = Math.min.apply(Math, mathmin);
       if (offsetleft < canvas_div.offset().left) {
         lastevent = true;
-        let blocko = blocks.map(a => a.id);
+        const blocko = blocks.map(a => a.id);
         for (let w = 0; w < blocks.length; w++) {
           $(
             '.blockid[value=' +
@@ -824,8 +824,8 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
                 20
             );
           if (blocks.filter(a => a.id == blocko[w])[0].parent != -1) {
-            let arrowhelp = blocks.filter(a => a.id == blocko[w])[0];
-            let arrowx =
+            const arrowhelp = blocks.filter(a => a.id == blocko[w])[0];
+            const arrowx =
               arrowhelp.x -
               blocks.filter(
                 a => a.id == blocks.filter(a => a.id == blocko[w])[0].parent
@@ -870,7 +870,7 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
     function fixOffset() {
       if (offsetleftold < canvas_div.offset().left) {
         lastevent = false;
-        let blocko = blocks.map(a => a.id);
+        const blocko = blocks.map(a => a.id);
         for (let w = 0; w < blocks.length; w++) {
           $(
             '.blockid[value=' +
@@ -896,8 +896,8 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
             blocks.filter(a => a.id == blocko[w])[0].width / 2;
 
           if (blocks.filter(a => a.id == blocko[w])[0].parent != -1) {
-            let arrowhelp = blocks.filter(a => a.id == blocko[w])[0];
-            let arrowx =
+            const arrowhelp = blocks.filter(a => a.id == blocko[w])[0];
+            const arrowx =
               arrowhelp.x -
               blocks.filter(
                 a => a.id == blocks.filter(a => a.id == blocko[w])[0].parent
@@ -927,7 +927,7 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
     }
 
     function rearrangeMe() {
-      let result = blocks.map(a => a.parent);
+      const result = blocks.map(a => a.parent);
       for (let z = 0; z < result.length; z++) {
         if (result[z] == -1) {
           z++;
@@ -1012,10 +1012,10 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
               children.width / 2;
             totalremove += children.width + paddingx;
           }
-          let arrowhelp = blocks.filter(a => a.id == children.id)[0];
-          let arrowx =
+          const arrowhelp = blocks.filter(a => a.id == children.id)[0];
+          const arrowx =
             arrowhelp.x - blocks.filter(a => a.id == children.parent)[0].x + 20;
-          let arrowy =
+          const arrowy =
             arrowhelp.y -
             arrowhelp.height / 2 -
             (blocks.filter(a => a.id == children.parent)[0].y +

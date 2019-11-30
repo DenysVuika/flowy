@@ -10,6 +10,7 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
-    'no-var': 'error'
+    'no-var': 'error',
+    'prefer-const': 'error'
   }
 };
