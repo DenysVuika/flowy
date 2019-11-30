@@ -5,6 +5,7 @@
   "main": "flowy.min.js",
   "scripts": {
     "build": "rollup --config",
+    "lint": "npx eslint src/lib/**/*",
     "start": "http-server ./dist -o",
     "build-docs": "rollup --config --environment OUTPUT:docs",
     "start-docs": "http-server ./docs -o",
@@ -30,7 +31,11 @@
   },
   "homepage": "https://github.com/DenysVuika/flowy#readme",
   "devDependencies": {
+    "eslint": "^6.7.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "http-server": "^0.12.0",
+    "prettier": "^1.19.1",
     "rollup": "^1.27.5",
     "rollup-plugin-copy": "^3.1.0",
     "rollup-plugin-generate-html-template": "^1.6.0",
