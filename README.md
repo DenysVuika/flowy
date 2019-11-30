@@ -35,8 +35,26 @@ You can try out [the demo](https://denysvuika.github.io/flowy) to see the librar
 
 Adding Flowy to your WebApp is incredibly simple:
 
-1. Include jQuery to your project
-2. Link `flowy.min.js` to your project
+1. Include `jQuery` to your project
+2. Link `https://unpkg.com/@denysvuika/flowy` to your project
+
+```html
+<script src="https://unpkg.com/@denysvuika/flowy"></script>
+```
+
+### Installing via NPM
+
+With NPM:
+
+```sh
+npm install @denysvuika/flowy
+```
+
+With Yarn:
+
+```sh
+yarn add @denysvuika/flowy
+```
 
 ## Running Flowy
 

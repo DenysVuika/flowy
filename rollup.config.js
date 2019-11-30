@@ -32,8 +32,7 @@ export default {
         repository: pkg.repository,
         keywords: pkg.keywords,
         bugs: pkg.bugs,
-        homepage: pkg.homepage,
-        private: true
+        homepage: pkg.homepage
       })
     }),
     postcss(),
@@ -43,6 +42,10 @@ export default {
     }),
     copy({
       targets: [
+        {
+          src: 'README.md',
+          dest: outputDir
+        },
         {
           src: 'src/app/{assets,main.js,styles.css}',
           dest: outputDir

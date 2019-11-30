@@ -1,6 +1,6 @@
 {
   "name": "@denysvuika/flowy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The minimal javascript library to create flowcharts",
   "main": "flowy.min.js",
   "scripts": {
@@ -43,5 +43,6 @@
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-terser": "^5.1.2"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "private": true
 }
