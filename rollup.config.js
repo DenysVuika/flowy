@@ -2,6 +2,7 @@ import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import htmlTemplate from 'rollup-plugin-generate-html-template';
 import copy from 'rollup-plugin-copy';
+import generatePackageJson from 'rollup-plugin-generate-package-json';
 
 const outputDir = process.env.OUTPUT || 'dist';
 
@@ -20,6 +21,21 @@ export default {
     }
   ],
   plugins: [
+    generatePackageJson({
+      baseContents: pkg => ({
+        name: pkg.name,
+        main: pkg.main,
+        version: pkg.version,
+        description: pkg.description,
+        author: pkg.author,
+        license: pkg.license,
+        repository: pkg.repository,
+        keywords: pkg.keywords,
+        bugs: pkg.bugs,
+        homepage: pkg.homepage,
+        private: true
+      })
+    }),
     postcss(),
     htmlTemplate({
       template: 'src/app/index.html',

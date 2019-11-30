@@ -32,11 +32,11 @@
   "devDependencies": {
     "http-server": "^0.12.0",
     "rollup": "^1.27.5",
+    "rollup-plugin-copy": "^3.1.0",
+    "rollup-plugin-generate-html-template": "^1.6.0",
+    "rollup-plugin-generate-package-json": "^3.2.0",
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-terser": "^5.1.2"
   },
-  "dependencies": {
-    "rollup-plugin-copy": "^3.1.0",
-    "rollup-plugin-generate-html-template": "^1.6.0"
-  }
+  "dependencies": {}
 }
