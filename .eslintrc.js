@@ -2,7 +2,8 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    jquery: true
+    jquery: true,
+    node: true
   },
   extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   parserOptions: {
@@ -11,6 +12,7 @@ module.exports = {
   },
   rules: {
     'no-var': 'error',
-    'prefer-const': 'error'
+    'prefer-const': 'error',
+    'prefer-arrow-callback': 'error'
   }
 };

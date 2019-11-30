@@ -1,6 +1,6 @@
 import './flowy.css';
 
-const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
+const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
   if (!grab) {
     grab = function() {};
   }
@@ -16,7 +16,8 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
   if (!spacing_y) {
     spacing_y = 80;
   }
-  $(document).ready(function() {
+
+  $(document).ready(() => {
     let blocks = [];
     let blockstemp = [];
     const canvas_div = canvas;
@@ -28,9 +29,12 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
     let rearrange = false;
     let lastevent = false;
     let drag, dragx, dragy, original;
+
     canvas_div.append("<div class='indicator invisible'></div>");
+
     flowy.output = function() {
       const json_data = [];
+
       if (blocks.length > 0) {
         for (let i = 0; i < blocks.length; i++) {
           json_data.push({
@@ -53,10 +57,12 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
         return json_data;
       }
     };
+
     flowy.deleteBlocks = function() {
       blocks = [];
       canvas_div.html("<div class='indicator invisible'></div>");
     };
+
     $(document).on('mousedown', '.create-flowy', function(event) {
       if (event.which === 1) {
         original = $(this);
@@ -110,7 +116,8 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
         drag.css('top', event.clientY - dragy + 'px');
       }
     });
-    $(document).on('mouseup', function(event) {
+
+    $(document).on('mouseup', event => {
       if (event.which === 1 && (active || rearrange)) {
         blockReleased();
         if (!$('.indicator').hasClass('invisible')) {
@@ -612,7 +619,8 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
         }
       }
     });
-    $(document).on('mousedown', '.block', function(/*event*/) {
+
+    $(document).on('mousedown', '.block', (/*event*/) => {
       $(document).on('mouseup mousemove', '.block', function handler(event) {
         if (event.type !== 'mouseup') {
           if (event.which === 1) {
@@ -629,7 +637,7 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
               );
               drag = $(this);
               blockstemp.push(blocks.filter(a => a.id == blockid)[0]);
-              blocks = $.grep(blocks, function(e) {
+              blocks = $.grep(blocks, e => {
                 return e.id != blockid;
               });
               $('.arrowid[value=' + blockid + ']')
@@ -696,13 +704,13 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
                 i++
               ) {
                 const blocknumber = blocks.filter(a => a.parent == blockid)[i];
-                blocks = $.grep(blocks, function(e) {
+                blocks = $.grep(blocks, e => {
                   return e.id != blocknumber;
                 });
               }
               for (let i = 0; i < allids.length; i++) {
                 const blocknumber = allids[i];
-                blocks = $.grep(blocks, function(e) {
+                blocks = $.grep(blocks, e => {
                   return e.id != blocknumber;
                 });
               }
@@ -718,7 +726,8 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
         $(document).off('mouseup mousemove', handler);
       });
     });
-    $(document).on('mousemove', function(event) {
+
+    $(document).on('mousemove', event => {
       if (active) {
         drag.css('left', event.clientX - dragx + 'px');
         drag.css('top', event.clientY - dragy + 'px');
@@ -802,7 +811,7 @@ const flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
     function checkOffset() {
       offsetleft = blocks.map(a => a.x);
       const widths = blocks.map(a => a.width);
-      const mathmin = offsetleft.map(function(item, index) {
+      const mathmin = offsetleft.map((item, index) => {
         return item - widths[index] / 2;
       });
       offsetleft = Math.min.apply(Math, mathmin);
