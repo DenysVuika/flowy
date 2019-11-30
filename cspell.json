@@ -1,5 +1,6 @@
 {
   "version": "0.1",
   "language": "en",
+  "dictionaries": ["html", "en-gb", "en_US"],
   "words": ["flowy", "iife"]
 }

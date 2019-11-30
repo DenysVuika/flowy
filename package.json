@@ -1,5 +1,5 @@
 {
-  "name": "flowy",
+  "name": "@denysvuika/flowy",
   "version": "1.0.0",
   "description": "The minimal javascript library to create flowcharts",
   "main": "flowy.min.js",

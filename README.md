@@ -132,6 +132,17 @@ flowy.deleteBlocks();
 
 Currently there is no method to individually remove blocks. The only way to go about it is by splitting branches manually.
 
+## Developing
+
+You can use the following scripts with `npm run <script>` or `yarn <script>` commands:
+
+| script     | description                                       |
+| ---------- | ------------------------------------------------- |
+| build      | build the library to the `/dist` output folder    |
+| start      | run the demo app (requires `build`)               |
+| build-docs | build the `docs` folder for the live demo         |
+| start-docs | runs the live demo locally from the `docs` folder |
+
 ## License
 
 MIT
