@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rollup --config",
     "start": "http-server ./dist -o",
-    "docs": "http-server ./docs",
+    "build-docs": "rollup --config --environment OUTPUT:docs",
+    "start-docs": "http-server ./docs -o",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

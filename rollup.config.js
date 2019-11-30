@@ -3,15 +3,17 @@ import postcss from 'rollup-plugin-postcss';
 import htmlTemplate from 'rollup-plugin-generate-html-template';
 import copy from 'rollup-plugin-copy';
 
+const outputDir = process.env.OUTPUT || 'dist';
+
 export default {
   input: 'src/lib/flowy.js',
   output: [
     {
-      file: 'dist/flowy.js',
+      file: `${outputDir}/flowy.js`,
       format: 'cjs'
     },
     {
-      file: 'dist/flowy.min.js',
+      file: `${outputDir}/flowy.min.js`,
       format: 'iife',
       name: 'flowy',
       plugins: [terser()]
@@ -21,13 +23,13 @@ export default {
     postcss(),
     htmlTemplate({
       template: 'src/app/index.html',
-      target: 'dist/index.html'
+      target: `${outputDir}/index.html`
     }),
     copy({
       targets: [
         {
           src: 'src/app/{assets,main.js,styles.css}',
-          dest: 'dist'
+          dest: outputDir
         }
       ]
     })
