@@ -1,3 +1,5 @@
+import './flowy.css';
+
 var flowy = function(canvas, grab, release, snapping, spacing_x, spacing_y) {
     if (!grab) {
         grab = function() {};

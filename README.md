@@ -36,7 +36,7 @@ You can try out [the demo](https://denysvuika.github.io/flowy) to see the librar
 Adding Flowy to your WebApp is incredibly simple:
 
 1. Include jQuery to your project
-2. Link `flowy.min.js` and `flowy.min.css` to your project
+2. Link `flowy.min.js` to your project
 
 ## Running Flowy
 

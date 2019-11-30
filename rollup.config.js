@@ -1,4 +1,5 @@
 import { terser } from 'rollup-plugin-terser';
+import postcss from 'rollup-plugin-postcss';
 
 export default {
   input: 'src/flowy.js',
@@ -13,5 +14,6 @@ export default {
       name: 'flowy',
       plugins: [terser()]
     }
-  ]
+  ],
+  plugins: [postcss()]
 };
