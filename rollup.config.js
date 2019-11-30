@@ -1,8 +1,10 @@
 import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
+import htmlTemplate from 'rollup-plugin-generate-html-template';
+import copy from 'rollup-plugin-copy';
 
 export default {
-  input: 'src/flowy.js',
+  input: 'src/lib/flowy.js',
   output: [
     {
       file: 'dist/flowy.js',
@@ -15,5 +17,19 @@ export default {
       plugins: [terser()]
     }
   ],
-  plugins: [postcss()]
+  plugins: [
+    postcss(),
+    htmlTemplate({
+      template: 'src/app/index.html',
+      target: 'dist/index.html'
+    }),
+    copy({
+      targets: [
+        {
+          src: 'src/app/{assets,main.js,styles.css}',
+          dest: 'dist'
+        }
+      ]
+    })
+  ]
 };
