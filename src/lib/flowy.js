@@ -65,7 +65,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
 
     $(document).on('mousedown', '.create-flowy', function(event) {
       if (event.which === 1) {
-        original = $(this);
+        original = event.currentTarget;
 
         const newId = Date.now();
 
@@ -78,7 +78,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
           .removeClass('create-flowy')
           .appendTo('body');
 
-        $(this).addClass('dragnow');
+        original.classList.add('dragnow');
         drag = $(`.blockid[value='${newId}']`).parent();
 
         blockGrabbed($(this));
@@ -100,7 +100,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
         }
 
         if (active) {
-          original.removeClass('dragnow');
+          original.classList.remove('dragnow');
           drag.removeClass('dragging');
         }
 
