@@ -5,7 +5,7 @@
   "main": "flowy.min.js",
   "scripts": {
     "build": "rollup --config",
-    "lint": "npx eslint src/lib/**/*.js",
+    "lint": "npx eslint src/**/*.js",
     "start": "http-server ./dist",
     "build-docs": "rollup --config --environment OUTPUT:docs",
     "start-docs": "http-server ./docs -o",
