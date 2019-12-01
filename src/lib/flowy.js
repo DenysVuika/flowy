@@ -120,9 +120,11 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
     $(document).on('mouseup', event => {
       if (event.which === 1 && (active || rearrange)) {
         blockReleased();
+
         if (!$('.indicator').hasClass('invisible')) {
           $('.indicator').addClass('invisible');
         }
+
         if (active) {
           original.removeClass('dragnow');
           drag.removeClass('dragging');
@@ -130,66 +132,66 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
         if (parseInt(drag.children('.blockid').val()) == 0 && rearrange) {
           drag.removeClass('dragging');
           rearrange = false;
-          for (let w = 0; w < blocksTemp.length; w++) {
-            if (blocksTemp[w].id != parseInt(drag.children('.blockid').val())) {
-              $('.blockid[value=' + blocksTemp[w].id + ']')
+          for (let i = 0; i < blocksTemp.length; i++) {
+            if (blocksTemp[i].id != parseInt(drag.children('.blockid').val())) {
+              $('.blockid[value=' + blocksTemp[i].id + ']')
                 .parent()
                 .css(
                   'left',
-                  $('.blockid[value=' + blocksTemp[w].id + ']')
+                  $('.blockid[value=' + blocksTemp[i].id + ']')
                     .parent()
                     .offset().left -
                     canvas_div.offset().left +
                     canvas_div.scrollLeft()
                 );
-              $('.blockid[value=' + blocksTemp[w].id + ']')
+              $('.blockid[value=' + blocksTemp[i].id + ']')
                 .parent()
                 .css(
                   'top',
-                  $('.blockid[value=' + blocksTemp[w].id + ']')
+                  $('.blockid[value=' + blocksTemp[i].id + ']')
                     .parent()
                     .offset().top -
                     canvas_div.offset().top +
                     canvas_div.scrollTop()
                 );
-              $('.arrowid[value=' + blocksTemp[w].id + ']')
+              $('.arrowid[value=' + blocksTemp[i].id + ']')
                 .parent()
                 .css(
                   'left',
-                  $('.arrowid[value=' + blocksTemp[w].id + ']')
+                  $('.arrowid[value=' + blocksTemp[i].id + ']')
                     .parent()
                     .offset().left -
                     canvas_div.offset().left +
                     canvas_div.scrollLeft()
                 );
-              $('.arrowid[value=' + blocksTemp[w].id + ']')
+              $('.arrowid[value=' + blocksTemp[i].id + ']')
                 .parent()
                 .css(
                   'top',
-                  $('.arrowid[value=' + blocksTemp[w].id + ']')
+                  $('.arrowid[value=' + blocksTemp[i].id + ']')
                     .parent()
                     .offset().top -
                     canvas_div.offset().top +
                     canvas_div.scrollTop() +
                     'px'
                 );
-              $('.blockid[value=' + blocksTemp[w].id + ']')
+              $('.blockid[value=' + blocksTemp[i].id + ']')
                 .parent()
                 .appendTo(canvas_div);
-              $('.arrowid[value=' + blocksTemp[w].id + ']')
+              $('.arrowid[value=' + blocksTemp[i].id + ']')
                 .parent()
                 .appendTo(canvas_div);
-              blocksTemp[w].x =
-                $('.blockid[value=' + blocksTemp[w].id + ']')
+              blocksTemp[i].x =
+                $('.blockid[value=' + blocksTemp[i].id + ']')
                   .parent()
                   .offset().left +
-                $('.blockid[value=' + blocksTemp[w].id + ']').innerWidth() / 2 +
+                $('.blockid[value=' + blocksTemp[i].id + ']').innerWidth() / 2 +
                 canvas_div.scrollLeft();
-              blocksTemp[w].y =
-                $('.blockid[value=' + blocksTemp[w].id + ']')
+              blocksTemp[i].y =
+                $('.blockid[value=' + blocksTemp[i].id + ']')
                   .parent()
                   .offset().top +
-                $('.blockid[value=' + blocksTemp[w].id + ']')
+                $('.blockid[value=' + blocksTemp[i].id + ']')
                   .parent()
                   .innerHeight() /
                   2 +
@@ -879,51 +881,36 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
     function fixOffset() {
       if (offsetLeftOld < canvas_div.offset().left) {
         lastEvent = false;
-        const blocko = blocks.map(a => a.id);
-        for (let w = 0; w < blocks.length; w++) {
-          $(
-            '.blockid[value=' +
-              blocks.filter(a => a.id == blocko[w])[0].id +
-              ']'
-          )
+        const blockIds = blocks.map(a => a.id);
+
+        for (let i = 0; i < blocks.length; i++) {
+          const block = blocks.filter(a => a.id == blockIds[i])[0];
+
+          $('.blockid[value=' + block.id + ']')
             .parent()
-            .css(
-              'left',
-              blocks.filter(a => a.id == blocko[w])[0].x -
-                blocks.filter(a => a.id == blocko[w])[0].width / 2 -
-                offsetLeftOld -
-                20
-            );
-          blocks.filter(a => a.id == blocko[w])[0].x =
-            $(
-              '.blockid[value=' +
-                blocks.filter(a => a.id == blocko[w])[0].id +
-                ']'
-            )
+            .css('left', block.x - block.width / 2 - offsetLeftOld - 20);
+          block.x =
+            $('.blockid[value=' + block.id + ']')
               .parent()
               .offset().left +
-            blocks.filter(a => a.id == blocko[w])[0].width / 2;
+            block.width / 2;
 
-          if (blocks.filter(a => a.id == blocko[w])[0].parent != -1) {
-            const arrowHelp = blocks.filter(a => a.id == blocko[w])[0];
+          if (block.parent != -1) {
+            const arrowHelp = block;
             const arrowX =
-              arrowHelp.x -
-              blocks.filter(
-                a => a.id == blocks.filter(a => a.id == blocko[w])[0].parent
-              )[0].x;
+              arrowHelp.x - blocks.filter(a => a.id == block.parent)[0].x;
+            const arrowEl = $('.arrowid[value=' + blockIds[i] + ']');
+
             if (arrowX < 0) {
-              $('.arrowid[value=' + blocko[w] + ']')
+              arrowEl
                 .parent()
                 .css('left', arrowHelp.x - 5 - canvas_div.offset().left + 'px');
             } else {
-              $('.arrowid[value=' + blocko[w] + ']')
+              arrowEl
                 .parent()
                 .css(
                   'left',
-                  blocks.filter(
-                    id =>
-                      id.id == blocks.filter(a => a.id == blocko[w])[0].parent
-                  )[0].x -
+                  blocks.filter(id => id.id == block.parent)[0].x -
                     20 -
                     canvas_div.offset().left +
                     'px'
