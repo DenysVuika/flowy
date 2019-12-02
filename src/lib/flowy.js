@@ -327,70 +327,56 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
 
                 for (let w = 0; w < blocksTemp.length; w++) {
                   if (blocksTemp[w].id != dragId) {
-                    $('.blockid[value=' + blocksTemp[w].id + ']')
+                    const tempBlock = $(`.blockid[value='${blocksTemp[w].id}]`);
+                    const tempArrow = $(
+                      `.arrowid[value='${blocksTemp[w].id}']`
+                    );
+
+                    tempBlock
                       .parent()
                       .css(
                         'left',
-                        $('.blockid[value=' + blocksTemp[w].id + ']')
-                          .parent()
-                          .offset().left -
+                        tempBlock.parent().offset().left -
                           canvas_div.offset().left +
                           canvas_div.scrollLeft()
                       );
-                    $('.blockid[value=' + blocksTemp[w].id + ']')
+                    tempBlock
                       .parent()
                       .css(
                         'top',
-                        $('.blockid[value=' + blocksTemp[w].id + ']')
-                          .parent()
-                          .offset().top -
+                        tempBlock.parent().offset().top -
                           canvas_div.offset().top +
                           canvas_div.scrollTop()
                       );
-                    $('.arrowid[value=' + blocksTemp[w].id + ']')
+                    tempArrow
                       .parent()
                       .css(
                         'left',
-                        $('.arrowid[value=' + blocksTemp[w].id + ']')
-                          .parent()
-                          .offset().left -
+                        tempArrow.parent().offset().left -
                           canvas_div.offset().left +
                           canvas_div.scrollLeft() +
                           20
                       );
-                    $('.arrowid[value=' + blocksTemp[w].id + ']')
+                    tempArrow
                       .parent()
                       .css(
                         'top',
-                        $('.arrowid[value=' + blocksTemp[w].id + ']')
-                          .parent()
-                          .offset().top -
+                        tempArrow.parent().offset().top -
                           canvas_div.offset().top +
                           canvas_div.scrollTop()
                       );
-                    $('.blockid[value=' + blocksTemp[w].id + ']')
-                      .parent()
-                      .appendTo(canvas_div);
-                    $('.arrowid[value=' + blocksTemp[w].id + ']')
-                      .parent()
-                      .appendTo(canvas_div);
+
+                    tempBlock.parent().appendTo(canvas_div);
+                    tempArrow.parent().appendTo(canvas_div);
+
                     blocksTemp[w].x =
-                      $('.blockid[value=' + blocksTemp[w].id + ']')
-                        .parent()
-                        .offset().left +
-                      $(
-                        '.blockid[value=' + blocksTemp[w].id + ']'
-                      ).innerWidth() /
-                        2 +
+                      tempBlock.parent().offset().left +
+                      tempBlock.innerWidth() / 2 +
                       canvas_div.scrollLeft();
+
                     blocksTemp[w].y =
-                      $('.blockid[value=' + blocksTemp[w].id + ']')
-                        .parent()
-                        .offset().top +
-                      $('.blockid[value=' + blocksTemp[w].id + ']')
-                        .parent()
-                        .innerHeight() /
-                        2 +
+                      tempBlock.parent().offset().top +
+                      tempBlock.parent().innerHeight() / 2 +
                       canvas_div.scrollTop();
                   }
                 }
@@ -415,8 +401,10 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
               }
 
               const arrowHelp = blocks.filter(a => a.id == dragId)[0];
+              const arrowElement = $(`.arrowid[value='${dragId}']`);
+
               const arrowX = arrowHelp.x - block.x + 20;
-              const arrowy =
+              const arrowY =
                 arrowHelp.y -
                 arrowHelp.height / 2 -
                 (blocks.filter(a => a.parent == blockIds[i])[0].y +
@@ -436,16 +424,17 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                     'L5 ' +
                     paddingY / 2 +
                     'L5 ' +
-                    arrowy +
+                    arrowY +
                     '" stroke="#C5CCD0" stroke-width="2px"/><path d="M0 ' +
-                    (arrowy - 5) +
+                    (arrowY - 5) +
                     'H10L5 ' +
-                    arrowy +
+                    arrowY +
                     'L0 ' +
-                    (arrowy - 5) +
+                    (arrowY - 5) +
                     'Z" fill="#C5CCD0"/></svg></div>'
                 );
-                $('.arrowid[value=' + dragId + ']')
+
+                arrowElement
                   .parent()
                   .css(
                     'left',
@@ -468,24 +457,24 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                     'L' +
                     arrowX +
                     ' ' +
-                    arrowy +
+                    arrowY +
                     '" stroke="#C5CCD0" stroke-width="2px"/><path d="M' +
                     (arrowX - 5) +
                     ' ' +
-                    (arrowy - 5) +
+                    (arrowY - 5) +
                     'H' +
                     (arrowX + 5) +
                     'L' +
                     arrowX +
                     ' ' +
-                    arrowy +
+                    arrowY +
                     'L' +
                     (arrowX - 5) +
                     ' ' +
-                    (arrowy - 5) +
+                    (arrowY - 5) +
                     'Z" fill="#C5CCD0"/></svg></div>'
                 );
-                $('.arrowid[value=' + dragId + ']')
+                arrowElement
                   .parent()
                   .css(
                     'left',
@@ -496,7 +485,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                       'px'
                   );
               }
-              $('.arrowid[value=' + dragId + ']')
+              arrowElement
                 .parent()
                 .css('top', block.y + block.height / 2 + 'px');
 
@@ -574,6 +563,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
               drag.addClass('dragging');
               dragX = event.clientX - $(this).offset().left;
               dragY = event.clientY - $(this).offset().top;
+
               const blockid = parseInt(
                 $(this)
                   .children('.blockid')

@@ -1,0 +1,25 @@
+{
+  "name": "@denysvuika/flowy",
+  "main": "flowy.min.js",
+  "version": "1.0.1",
+  "description": "The minimal javascript library to create flowcharts",
+  "author": {
+    "name": "Denys Vuika",
+    "email": "denys.vuika@gmail.com",
+    "url": "https://denys.dev"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DenysVuika/flowy.git"
+  },
+  "keywords": [
+    "flowchart",
+    "diagrams",
+    "javascript"
+  ],
+  "bugs": {
+    "url": "https://github.com/DenysVuika/flowy/issues"
+  },
+  "homepage": "https://github.com/DenysVuika/flowy#readme"
+}
