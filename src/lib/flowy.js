@@ -267,21 +267,25 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                         childBlock.width / 2 +
                         'px'
                     );
+
                   childBlock.x =
                     childBlocks[0].x -
                     totalWidth / 2 +
                     totalRemove +
                     childBlock.childwidth / 2;
+
                   totalRemove += childBlock.childwidth + paddingX;
                 } else {
                   childElement
                     .parent()
                     .css('left', block.x - totalWidth / 2 + totalRemove + 'px');
+
                   childBlock.x =
                     childBlocks[0].x -
                     totalWidth / 2 +
                     totalRemove +
                     childBlock.width / 2;
+
                   totalRemove += childBlock.width + paddingX;
                 }
               }
@@ -304,10 +308,10 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                   'px'
               );
 
-              if (rearrange) {
-                const dragId = parseInt(drag.children('.blockid').val());
-                const dragBlock = blocksTemp.filter(a => a.id == dragId)[0];
+              const dragId = parseInt(drag.children('.blockid').val());
+              const dragBlock = blocksTemp.filter(a => a.id == dragId)[0];
 
+              if (rearrange) {
                 dragBlock.x =
                   drag.offset().left +
                   drag.innerWidth() / 2 +
@@ -396,7 +400,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                 blocks.push({
                   childwidth: 0,
                   parent: blockIds[i],
-                  id: parseInt(drag.children('.blockid').val()),
+                  id: dragId,
                   x:
                     drag.offset().left +
                     drag.innerWidth() / 2 +
@@ -409,20 +413,20 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                   height: drag.innerHeight()
                 });
               }
-              const arrowHelp = blocks.filter(
-                a => a.id == parseInt(drag.children('.blockid').val())
-              )[0];
+
+              const arrowHelp = blocks.filter(a => a.id == dragId)[0];
               const arrowX = arrowHelp.x - block.x + 20;
               const arrowy =
                 arrowHelp.y -
                 arrowHelp.height / 2 -
-                (blocks.filter(id => id.parent == blockIds[i])[0].y +
-                  blocks.filter(id => id.parent == blockIds[i])[0].height / 2) +
+                (blocks.filter(a => a.parent == blockIds[i])[0].y +
+                  blocks.filter(a => a.parent == blockIds[i])[0].height / 2) +
                 canvas_div.scrollTop();
+
               if (arrowX < 0) {
                 drag.after(
                   '<div class="arrowblock"><input type="hidden" class="arrowid" value="' +
-                    drag.children('.blockid').val() +
+                    dragId +
                     '"><svg preserveaspectratio="none" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M' +
                     (block.x - arrowHelp.x + 5) +
                     ' 0L' +
@@ -441,7 +445,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                     (arrowy - 5) +
                     'Z" fill="#C5CCD0"/></svg></div>'
                 );
-                $('.arrowid[value=' + drag.children('.blockid').val() + ']')
+                $('.arrowid[value=' + dragId + ']')
                   .parent()
                   .css(
                     'left',
@@ -454,7 +458,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
               } else {
                 drag.after(
                   '<div class="arrowblock"><input type="hidden" class="arrowid" value="' +
-                    drag.children('.blockid').val() +
+                    dragId +
                     '"><svg preserveaspectratio="none" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0L20 ' +
                     paddingY / 2 +
                     'L' +
@@ -481,11 +485,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                     (arrowy - 5) +
                     'Z" fill="#C5CCD0"/></svg></div>'
                 );
-                $(
-                  '.arrowid[value=' +
-                    parseInt(drag.children('.blockid').val()) +
-                    ']'
-                )
+                $('.arrowid[value=' + dragId + ']')
                   .parent()
                   .css(
                     'left',
@@ -496,11 +496,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                       'px'
                   );
               }
-              $(
-                '.arrowid[value=' +
-                  parseInt(drag.children('.blockid').val()) +
-                  ']'
-              )
+              $('.arrowid[value=' + dragId + ']')
                 .parent()
                 .css('top', block.y + block.height / 2 + 'px');
 
@@ -515,16 +511,14 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                     let zWidth = 0;
                     for (
                       let w = 0;
-                      w < blocks.filter(id => id.parent == idVal).length;
+                      w < blocks.filter(a => a.parent == idVal).length;
                       w++
                     ) {
-                      const children = blocks.filter(id => id.parent == idVal)[
-                        w
-                      ];
+                      const children = blocks.filter(a => a.parent == idVal)[w];
                       if (children.childwidth > children.width) {
                         if (
                           w ==
-                          blocks.filter(id => id.parent == idVal).length - 1
+                          blocks.filter(a => a.parent == idVal).length - 1
                         ) {
                           zWidth += children.childwidth;
                         } else {
@@ -533,7 +527,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                       } else {
                         if (
                           w ==
-                          blocks.filter(id => id.parent == idVal).length - 1
+                          blocks.filter(a => a.parent == idVal).length - 1
                         ) {
                           zWidth += children.width;
                         } else {
@@ -545,7 +539,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
                     idVal = blocks.filter(a => a.id == idVal)[0].parent;
                   }
                 }
-                blocks.filter(id => id.id == idVal)[0].childwidth = totalWidth;
+                blocks.filter(a => a.id == idVal)[0].childwidth = totalWidth;
               }
 
               if (rearrange) {
