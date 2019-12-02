@@ -85,6 +85,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
         blockGrabbed($(this));
         drag.addClass('dragging');
         active = true;
+
         dragX = event.clientX - $(this).offset().left;
         dragY = event.clientY - $(this).offset().top;
         drag.css('left', event.clientX - dragX + 'px');
@@ -114,67 +115,51 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
 
           for (let i = 0; i < blocksTemp.length; i++) {
             if (blocksTemp[i].id != currentBlockId) {
-              $('.blockid[value=' + blocksTemp[i].id + ']')
+              const blockElement = $(`.blockid[value='${blocksTemp[i].id}']`);
+              const arrowElement = $(`.arrowid[value='${blocksTemp[i].id}']`);
+
+              blockElement
                 .parent()
                 .css(
                   'left',
-                  $('.blockid[value=' + blocksTemp[i].id + ']')
-                    .parent()
-                    .offset().left -
+                  blockElement.parent().offset().left -
                     canvas_div.offset().left +
                     canvas_div.scrollLeft()
                 );
-              $('.blockid[value=' + blocksTemp[i].id + ']')
+              blockElement
                 .parent()
                 .css(
                   'top',
-                  $('.blockid[value=' + blocksTemp[i].id + ']')
-                    .parent()
-                    .offset().top -
+                  blockElement.parent().offset().top -
                     canvas_div.offset().top +
                     canvas_div.scrollTop()
                 );
-              $('.arrowid[value=' + blocksTemp[i].id + ']')
+              arrowElement
                 .parent()
                 .css(
                   'left',
-                  $('.arrowid[value=' + blocksTemp[i].id + ']')
-                    .parent()
-                    .offset().left -
+                  arrowElement.parent().offset().left -
                     canvas_div.offset().left +
                     canvas_div.scrollLeft()
                 );
-              $('.arrowid[value=' + blocksTemp[i].id + ']')
+              arrowElement
                 .parent()
                 .css(
                   'top',
-                  $('.arrowid[value=' + blocksTemp[i].id + ']')
-                    .parent()
-                    .offset().top -
+                  arrowElement.parent().offset().top -
                     canvas_div.offset().top +
                     canvas_div.scrollTop() +
                     'px'
                 );
-              $('.blockid[value=' + blocksTemp[i].id + ']')
-                .parent()
-                .appendTo(canvas_div);
-              $('.arrowid[value=' + blocksTemp[i].id + ']')
-                .parent()
-                .appendTo(canvas_div);
+              blockElement.parent().appendTo(canvas_div);
+              arrowElement.parent().appendTo(canvas_div);
               blocksTemp[i].x =
-                $('.blockid[value=' + blocksTemp[i].id + ']')
-                  .parent()
-                  .offset().left +
-                $('.blockid[value=' + blocksTemp[i].id + ']').innerWidth() / 2 +
+                blockElement.parent().offset().left +
+                blockElement.innerWidth() / 2 +
                 canvas_div.scrollLeft();
               blocksTemp[i].y =
-                $('.blockid[value=' + blocksTemp[i].id + ']')
-                  .parent()
-                  .offset().top +
-                $('.blockid[value=' + blocksTemp[i].id + ']')
-                  .parent()
-                  .innerHeight() /
-                  2 +
+                blockElement.parent().offset().top +
+                blockElement.parent().innerHeight() / 2 +
                 canvas_div.scrollTop();
             }
           }
