@@ -29,6 +29,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
     let rearrange = false;
     let lastEvent = false;
     let drag, dragX, dragY, original;
+    let uid = -1;
 
     canvas_div.append("<div class='indicator invisible'></div>");
 
@@ -67,7 +68,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
       if (event.which === 1) {
         original = event.currentTarget;
 
-        const newId = Date.now();
+        const newId = ++uid; /*Date.now();*/
 
         $(this)
           .clone()
@@ -104,11 +105,15 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
           drag.removeClass('dragging');
         }
 
-        if (parseInt(drag.children('.blockid').val()) == 0 && rearrange) {
+        const currentBlockId = parseInt(drag.children('.blockid').val());
+
+        // todo check if root instead (introduce the concept of root node)
+        if (currentBlockId == 0 && rearrange) {
           drag.removeClass('dragging');
           rearrange = false;
+
           for (let i = 0; i < blocksTemp.length; i++) {
-            if (blocksTemp[i].id != parseInt(drag.children('.blockid').val())) {
+            if (blocksTemp[i].id != currentBlockId) {
               $('.blockid[value=' + blocksTemp[i].id + ']')
                 .parent()
                 .css(
@@ -205,7 +210,7 @@ const flowy = (canvas, grab, release, snapping, spacing_x, spacing_y) => {
           blocks.push({
             parent: -1,
             childwidth: 0,
-            id: parseInt(drag.children('.blockid').val()),
+            id: currentBlockId,
             x:
               drag.offset().left +
               drag.innerWidth() / 2 +
